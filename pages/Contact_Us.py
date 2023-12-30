@@ -1,8 +1,8 @@
 import streamlit as st
 from send_email import send_email
-import pandas
+import pandas as pd
 
-df = pandas.read_csv("data/topics.csv")
+df = pd.read_csv("data/contact_us_topics.csv")
 
 st.header("Contact Us!")
 
