@@ -67,3 +67,20 @@ for filepath in filepaths:
 
     pdf.output(f"../PDFs/{invoice_num}.pdf")
 
+"""
+Notes:
+Bigger pieces of text that expand across multiple lines.For such text, you should use the multi_cell method:
+
+pdf.multi_cell(w, h, txt)
+
+complete example:
+
+from fpdf import FPDF
+
+pdf = FPDF(orientation="P", unit="mm", format="A4")
+pdf.add_page()
+
+pdf.set_font(family="Times", size=12)
+pdf.multi_cell(w=0, h=6, txt=content)
+pdf.output("output.pdf")
+"""
