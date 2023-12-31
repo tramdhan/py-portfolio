@@ -26,7 +26,7 @@ for filepath in filepaths:
 
     df = pd.read_excel(filepath, sheet_name="Sheet 1")
 
-    # col headers
+    # col headers from excel sheet, removing underscores and covert to uppercase
     columns = df.columns
     columns = [item.replace("_", " ").title() for item in columns]
     pdf.set_font(family="Times", size=10)
@@ -46,6 +46,24 @@ for filepath in filepaths:
         pdf.cell(w=30, h=8, txt=str(row["amount_purchased"]), border=1)
         pdf.cell(w=30, h=8, txt=str(row["price_per_unit"]), border=1)
         pdf.cell(w=30, h=8, txt=str(row["total_price"]), border=1, ln=1)
+
+    #  summary row
+    total_sum = df["total_price"].sum()
+    pdf.set_font(family="Times", size=10, style="B")
+    pdf.cell(w=30, h=8, txt="", border=1)
+    pdf.cell(w=70, h=8, txt="", border=1)
+    pdf.cell(w=30, h=8, txt="", border=1)
+    pdf.cell(w=30, h=8, txt="", border=1)
+    pdf.cell(w=30, h=8, txt=str(total_sum), border=1, ln=1)
+
+    #  add sum sentence
+    pdf.set_font(family="Times", size=10, style="B")
+    pdf.cell(w=30, h=8, txt=f"The invoice total is {total_sum}", ln=1)
+
+    # add company name and logo
+    pdf.set_font(family="Times", size=14, style="B")
+    pdf.cell(w=23, h=8, txt=f"Acme Inc.")
+    pdf.image("../assets/images/20.png", w=10)
 
     pdf.output(f"../PDFs/{invoice_num}.pdf")
 
